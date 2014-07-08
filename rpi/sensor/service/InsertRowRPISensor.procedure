@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UDE:Procedure xmlns:UDE="http://www.sap.com/ndb/SQLCoreModelUDE.ecore" xmlns:DataTypes="http://www.sap.com/ndb/SQLCoreModelDataTypes.ecore" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="InsertRowRPISensor" schemaVersion="2" procedureType="procedure" runWithInvokerPrivileges="true" language="SQLSCRIPT" accessMode="ReadWrite">
+<descriptions defaultDescription=""/>
+<metadata changedAt ="2014-07-08 21:36:58.844" createdAt="2014-07-08 21:33:32.161"/>
+<origin/>
+<schema id="_SYS_BIC"/>
+<definition>   
+BEGIN
+/***************************** 
+	Write your procedure logic 
+ *****************************/
+ 
+	declare lv_STATUS string;
+
+	SELECT
+		STATUS
+	INTO
+		lv_STATUS
+	FROM :row;
+
+
+  if :lv_STATUS = &apos;&apos;  then
+
+    error = select 400 as http_status_code, &apos;invalid STATUS&apos; error_message, &apos;Must be filed&apos; detail from dummy;
+  else
+    
+    insert into &quot;RPISENSOR&quot;.&quot;rpi.sensor.init::RpiSensor&quot;
+	   values (current_timestamp, current_date,
+		   lv_STATUS);
+
+  end if;
+END;</definition>
+<defaultSchema schemaName="SYSTEM"/>
+<parameters id="row" paramType="IN">
+  <typeReference schema="&quot;RPISENSOR&quot;" name="&quot;rpi.sensor.init::RpiSensor&quot;"/>
+</parameters>
+<parameters id="error" paramType="OUT">
+  <typeReference schema="&quot;RPISENSOR&quot;" name="&quot;rpi.sensor.init::error&quot;"/>
+</parameters>
+<localTableType>/*
+You can create new table types and use them as input and output parameters in a procedure.
+To do this, define the table types using SQl syntax, for example the following:
+CREATE TYPE &lt;Type Name&gt; AS TABLE (&lt;Field Name1&gt; &lt;Field Type1&gt;, &lt;Field Name2&gt; &lt;Field Type2&gt;,...);
+*/
+</localTableType>
+<header>CREATE PROCEDURE InsertRowRPISensor (IN row &quot;RPISENSOR&quot;.&quot;rpi.sensor.init::RpiSensor&quot;,OUT error &quot;RPISENSOR&quot;.&quot;rpi.sensor.init::error&quot; ) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER 
+	--DEFAULT SCHEMA &lt;default_schema_name&gt;
+	--READS SQL DATA 
+	AS</header>
+</UDE:Procedure>
