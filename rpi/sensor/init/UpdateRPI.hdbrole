@@ -1,0 +1,7 @@
+role rpi.sensor.init::UpdateRPI {
+	schema rpi.sensor.init:RPISENSOR.hdbschema: SELECT;
+	package rpi: REPO.READ, REPO.EDIT_NATIVE_OBJECTS, REPO.ACTIVATE_NATIVE_OBJECTS, REPO.MAINTAIN_NATIVE_PACKAGES;
+	
+	sql object rpi.sensor.init:RpiSensor.hdbtable: SELECT, INSERT, UPDATE, DELETE;
+
+}
