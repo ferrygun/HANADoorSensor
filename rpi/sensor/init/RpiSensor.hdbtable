@@ -1,0 +1,11 @@
+table.schemaName = "RPISENSOR";
+table.tableType = COLUMNSTORE;
+table.description = "RPISENSOR";
+table.loggingType = NOLOGGING;
+table.columns = [
+	{name = "STIMESTAMP"; sqlType = TIMESTAMP;  nullable = true;},
+	{name = "SDATE"; sqlType = DATE; nullable = true;},
+	{name = "STATUS"; sqlType = NVARCHAR; length = 5; nullable = true;}
+
+];  
+table.primaryKey.pkcolumns = ["STIMESTAMP"];
