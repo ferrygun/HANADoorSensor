@@ -1,0 +1,6 @@
+service namespace "rpi.sensor.service" {  
+     
+     "RPISENSOR"."rpi.sensor.init::RpiSensor" as "RpiSensor"
+     create using "rpi.sensor.service::InsertRowRPISensor";
+
+} 
